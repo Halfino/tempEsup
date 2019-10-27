@@ -30,7 +30,14 @@ namespace tempEsup
         {
             InitializeComponent();
             WhazzupDownloader statusDownloader = new WhazzupDownloader();
-            statusDownloader.donwloadStatus();
+            try
+            {
+                statusDownloader.donwloadStatus();
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Soubor status whazzup IVAO nelze stahnout. Kontaktujte CZ-WM\n" + e.Message);
+            }
             MessageBox.Show("Copyright(c) 2019 Jan Koranda\n\n"
                             + "Permission is hereby granted, free of charge, to any person\n"
                             + "obtaining a copy of this software and associated documentation\n"
@@ -71,7 +78,14 @@ namespace tempEsup
             string whazzupUri = parser.parseStatus(path);
             Console.WriteLine(whazzupUri);
             WhazzupDownloader whazzupDownload = new WhazzupDownloader();
-            whazzupDownload.downloadWhazzup(whazzupUri);
+            try
+            {
+                whazzupDownload.downloadWhazzup(whazzupUri);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Soubor whazzup nelze stahnout.Kontaktujte CZ-WM@ivao.aero \n" + e.Message);
+            }
 
             //Timer to execute download after 5 minutes and reset time tracker
             using (Timer t = new Timer(TimeSpan.FromMinutes(5).TotalMilliseconds)) // Set the time (5 mins in this case)

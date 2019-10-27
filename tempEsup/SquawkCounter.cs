@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace tempEsup
 {
@@ -14,29 +15,56 @@ namespace tempEsup
         public int countSquawk(int min, int max, int previous)
         {
             int nextSquawk;
-            if (Enumerable.Range(min, max).Contains(previous))
+            WhazzupParser parser = new WhazzupParser();
+            List<String> assignedSquawks = parser.getSquawks(Path.Combine(Environment.CurrentDirectory, @"Data\", "whazzup.txt"));
+
+            if(hasFree(min, max, assignedSquawks) == true)
             {
-                nextSquawk = previous + 1;
+                if (Enumerable.Range(min, max).Contains(previous))
+                {
+                    nextSquawk = previous + 1;
+                }
+                else
+                {
+                    nextSquawk = min;
+                }
+                if (nextSquawk > max)
+                {
+                    nextSquawk = min;
+                }
+
+                Globals.previous = nextSquawk;
+
+                if (assignedSquawks.Contains(nextSquawk.ToString()))
+                {
+                    return countSquawk(min, max, nextSquawk);
+                }              
+                return nextSquawk;
             }
             else
             {
-                nextSquawk = min;
+                return 0000;
             }
-            if (nextSquawk > max)
-            {
-                nextSquawk = min;
-            }
-
-            Globals.previous = nextSquawk;
-            WhazzupParser parser = new WhazzupParser();
-            List<String> assignedSquawks = parser.getSquawks(Path.Combine(Environment.CurrentDirectory, @"Data\", "whazzup.txt"));
-            if (assignedSquawks.Contains(nextSquawk.ToString()))
-            {
-                return countSquawk(min, max, nextSquawk);
-            }
-            return nextSquawk;
         }
 
+        private bool hasFree(int min, int max, List<String> occupiedBank)
+        {
+            bool result = false;
+            for (int i = min; i < max; i++)
+            {
+                if (!occupiedBank.Contains(i.ToString("D4")))
+                {
+                    result = true;
+                                          
+                    
+                }
+            }
+            if (result == false)
+            {
+                MessageBox.Show("Zvolená banka SQUAWK je obsazena. Zvolte náhradní");
+            }
+            return result;
+        }
 
     }
 }
