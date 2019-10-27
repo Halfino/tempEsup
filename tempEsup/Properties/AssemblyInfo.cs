@@ -8,7 +8,7 @@ using System.Windows;
 // sadu atributů. Změnou hodnot těchto atributů se upraví informace
 // přidružené k sestavení.
 [assembly: AssemblyTitle("tempEsup")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Short tool to provide SQUAWK for LKAA online IVAO traffic")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("tempEsup")]
@@ -53,3 +53,5 @@ using System.Windows;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: NeutralResourcesLanguage("cs-CZ")]
+
