@@ -35,10 +35,15 @@ namespace tempEsup
 
                 Globals.previous = nextSquawk;
 
-                if (assignedSquawks.Contains(nextSquawk.ToString()))
+                if (assignedSquawks.Contains(nextSquawk.ToString()) || nextSquawk.ToString().Contains(8.ToString()) || nextSquawk.ToString().Contains(9.ToString()))
+                {
+
+                    return countSquawk(min, max, nextSquawk);
+                }
+                if (nextSquawk == 3333 || nextSquawk == 3334)
                 {
                     return countSquawk(min, max, nextSquawk);
-                }              
+                }
                 return nextSquawk;
             }
             else

@@ -20,7 +20,7 @@ namespace tempEsup
 
         public static int LKAA_DOM_MIN()
         {
-            return 3301;
+            return 3352;
         }
 
         public static int LKAA_DOM_MAX()
@@ -38,12 +38,22 @@ namespace tempEsup
             return 6637;
         }
 
-        public static int LKAA_EAST_MIN()
+        public static int LKTB_CTA_MIN()
         {
             return 0020;
         }
 
-        public static int LKAA_EAST_MAX()
+        public static int LKTB_CTA_MAX()
+        {
+            return 0027;
+        }
+
+        public static int LKMT_CTA_MIN()
+        {
+            return 0030;
+        }
+
+        public static int LKMT_CTA_MAX()
         {
             return 0037;
         }
@@ -100,12 +110,12 @@ namespace tempEsup
 
         public static int LKVO_MIN()
         {
-            return 3300;
+            return 3301;
         }
 
         public static int LKVO_MAX()
         {
-            return 3302;
+            return 3304;
         }
 
         public static int LKCV_MIN()
@@ -172,8 +182,9 @@ namespace tempEsup
         public static int prevLKNA = 0;
         public static int prevLKCV = 0;
         public static int prevLKKB = 0;
-        public static int prevLKAAeast = 0;
         public static int prevLKAAvfr = 0;
         public static int prevLKAAmnl = 0;
+        public static int prevLKTBcta = 0;
+        public static int prevLKMTcta = 0;
     }
 }

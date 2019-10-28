@@ -23,21 +23,18 @@ namespace tempEsup
     /// </summary>
     public partial class MainWindow : Window
     {
-        DispatcherTimer _timer;
-        TimeSpan _time;
-
         public MainWindow()
         {
-            InitializeComponent();
-            WhazzupDownloader statusDownloader = new WhazzupDownloader();
             try
             {
-                statusDownloader.donwloadStatus();
+                string dirPath = System.IO.Path.Combine(Environment.CurrentDirectory, @"Data");
+                Directory.CreateDirectory(dirPath);
             }
-            catch(Exception e)
+            catch(IOException e)
             {
-                MessageBox.Show("Soubor status whazzup IVAO nelze stahnout. Kontaktujte CZ-WM\n" + e.Message);
+                MessageBox.Show("Nelze vytvorit adresar Data. Zkontrolujte moznost zapisu ve slozce" + e);
             }
+            InitializeComponent();
             MessageBox.Show("Copyright(c) 2019 Jan Koranda\n\n"
                             + "Permission is hereby granted, free of charge, to any person\n"
                             + "obtaining a copy of this software and associated documentation\n"
@@ -61,61 +58,22 @@ namespace tempEsup
             Globals.previous = 0;
 
             //Dont know how to execute download on timer start, so using this again here
-            //_timer used for tracking refresh rate only
-            _time = TimeSpan.FromMinutes(5);
-
-            _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
-            {
-                tbTime.Text = _time.ToString("c");
-                if (_time == TimeSpan.Zero) _timer.Stop();
-                _time = _time.Add(TimeSpan.FromSeconds(-1));
-            }, Application.Current.Dispatcher);
-
-            _timer.Start();
-
-            StatusParser parser = new StatusParser();
-            string path = System.IO.Path.Combine(Environment.CurrentDirectory, @"Data\", "status.txt");
-            string whazzupUri = parser.parseStatus(path);
-            Console.WriteLine(whazzupUri);
             WhazzupDownloader whazzupDownload = new WhazzupDownloader();
-            try
-            {
-                whazzupDownload.downloadWhazzup(whazzupUri);
-            }
-            catch(Exception e)
-            {
-                MessageBox.Show("Soubor whazzup nelze stahnout.Kontaktujte CZ-WM@ivao.aero \n" + e.Message);
-            }
+            whazzupDownload.downloadWhazzup("https://cz.ivao.aero/datafeed/whazzup.txt");
+
+
 
             //Timer to execute download after 5 minutes and reset time tracker
-            using (Timer t = new Timer(TimeSpan.FromMinutes(5).TotalMilliseconds)) // Set the time (5 mins in this case)
-            {
-                t.AutoReset = true;
-                t.Elapsed += new ElapsedEventHandler(timer_Elapsed);
-                t.Start();
-            }
-
+            Timer t = new Timer(TimeSpan.FromMinutes(1).TotalMilliseconds); // Set the time (1 mins in this case)            
+            t.AutoReset = true;
+            t.Elapsed += new ElapsedEventHandler(timer_Elapsed);
+            t.Start();         
         }
 
         private void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            _time = TimeSpan.FromMinutes(5);
-
-            _timer = new DispatcherTimer(new TimeSpan(0, 0, 1), DispatcherPriority.Normal, delegate
-            {
-                tbTime.Text = _time.ToString("c");
-                if (_time == TimeSpan.Zero) _timer.Stop();
-                _time = _time.Add(TimeSpan.FromSeconds(-1));
-            }, Application.Current.Dispatcher);
-
-            _timer.Start();
-
-            StatusParser parser = new StatusParser();
-            string path = System.IO.Path.Combine(Environment.CurrentDirectory, @"Data\", "status.txt");
-            string whazzupUri = parser.parseStatus(path);
-            Console.WriteLine(whazzupUri);
             WhazzupDownloader whazzupDownload = new WhazzupDownloader();
-            whazzupDownload.downloadWhazzup(whazzupUri);
+            whazzupDownload.downloadWhazzup("https://cz.ivao.aero/datafeed/whazzup.txt");
         }
 
         
@@ -144,11 +102,19 @@ namespace tempEsup
             Code.Text = newSquawk.ToString();
         }
 
-        private void LKAA_East_click(object sender, RoutedEventArgs e)
+        private void LKTB_CTA_click(object sender, RoutedEventArgs e)
         {
             SquawkCounter counter = new SquawkCounter();
-            int newSquawk = counter.countSquawk(Globals.LKAA_EAST_MIN(), Globals.LKAA_EAST_MAX(), Globals.prevLKAAeast);
-            Globals.prevLKAAeast = newSquawk;
+            int newSquawk = counter.countSquawk(Globals.LKTB_CTA_MIN(), Globals.LKTB_CTA_MAX(), Globals.prevLKTBcta);
+            Globals.prevLKTBcta = newSquawk;
+            Code.Text = newSquawk.ToString("D4");
+        }
+
+        private void LKMT_CTA_click(object sender, RoutedEventArgs e)
+        {
+            SquawkCounter counter = new SquawkCounter();
+            int newSquawk = counter.countSquawk(Globals.LKMT_CTA_MIN(), Globals.LKMT_CTA_MAX(), Globals.prevLKMTcta);
+            Globals.prevLKMTcta = newSquawk;
             Code.Text = newSquawk.ToString("D4");
         }
 
