@@ -10,7 +10,7 @@ namespace tempEsup
     {
 
         public static int LKAA_MIN() {
-            return 1400;
+            return 1401;
         }
 
         public static int LKAA_MAX()
