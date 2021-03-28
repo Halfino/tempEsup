@@ -40,22 +40,22 @@ namespace tempEsup
 
         public static int LKTB_CTA_MIN()
         {
-            return 0020;
+            return 3320;
         }
 
         public static int LKTB_CTA_MAX()
         {
-            return 0027;
+            return 3325;
         }
 
         public static int LKMT_CTA_MIN()
         {
-            return 0030;
+            return 3345;
         }
 
         public static int LKMT_CTA_MAX()
         {
-            return 0037;
+            return 3347;
         }
 
         public static int LKPR_MIN()
@@ -70,32 +70,32 @@ namespace tempEsup
 
         public static int LKTB_MIN()
         {
-            return 3320;
+            return 4320;
         }
 
         public static int LKTB_MAX()
         {
-            return 3327;
+            return 4327;
         }
 
         public static int LKMT_MIN()
         {
-            return 3345;
+            return 4345;
         }
 
         public static int LKMT_MAX()
         {
-            return 3347;
+            return 4347;
         }
 
         public static int LKKV_MIN()
         {
-            return 3350;
+            return 3305;
         }
 
         public static int LKKV_MAX()
         {
-            return 3351;
+            return 3307;
         }
 
         public static int LKPD_MIN()

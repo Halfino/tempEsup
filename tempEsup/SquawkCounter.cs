@@ -66,10 +66,17 @@ namespace tempEsup
             }
             if (result == false)
             {
-                MessageBox.Show("Zvolená banka SQUAWK je obsazena. Zvolte náhradní");
+                if(min == 3310) // Pokud je volennka z LKPR dle minimálního SQ, vyhodí hlášku z ifu. Jinak obecnou.
+                {
+                    MessageBox.Show("Zvolená banka je plná. Použij manuálně SQUAWK v rozsahu 5170 - 5173");
+                }
+                else
+                {
+                    MessageBox.Show("Zvolená banka SQUAWK je obsazena. Zvolte náhradní.");
+                }
+                
             }
             return result;
         }
-
     }
 }
