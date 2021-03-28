@@ -80,12 +80,12 @@ namespace tempEsup
 
         public static int LKMT_MIN()
         {
-            return 4345;
+            return 4330;
         }
 
         public static int LKMT_MAX()
         {
-            return 4347;
+            return 4337;
         }
 
         public static int LKKV_MIN()

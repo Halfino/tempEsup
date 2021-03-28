@@ -18,6 +18,12 @@ namespace tempEsup
             WhazzupParser parser = new WhazzupParser();
             List<String> assignedSquawks = parser.getSquawks(Path.Combine(Environment.CurrentDirectory, @"Data\", "whazzup.txt"));
 
+            if (previous == 4327 || previous == 3326) //rozsireni banky pro LKTB_TWR
+            {
+                min = 3326;
+                max = 3327;
+            }
+
             if(hasFree(min, max, assignedSquawks) == true)
             {
                 if (Enumerable.Range(min, max).Contains(previous))
@@ -51,7 +57,7 @@ namespace tempEsup
                 return 0000;
             }
         }
-
+       
         private bool hasFree(int min, int max, List<String> occupiedBank)
         {
             bool result = false;
@@ -59,11 +65,10 @@ namespace tempEsup
             {
                 if (!occupiedBank.Contains(i.ToString("D4")))
                 {
-                    result = true;
-                                          
-                    
+                    result = true;                 
                 }
             }
+
             if (result == false)
             {
                 if(min == 3310) // Pokud je volennka z LKPR dle minimálního SQ, vyhodí hlášku z ifu. Jinak obecnou.
@@ -73,8 +78,7 @@ namespace tempEsup
                 else
                 {
                     MessageBox.Show("Zvolená banka SQUAWK je obsazena. Zvolte náhradní.");
-                }
-                
+                }               
             }
             return result;
         }
