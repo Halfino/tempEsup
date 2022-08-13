@@ -59,7 +59,7 @@ namespace tempEsup
 
             //Dont know how to execute download on timer start, so using this again here
             WhazzupDownloader whazzupDownload = new WhazzupDownloader();
-            whazzupDownload.downloadWhazzup("https://api.ivao.aero/getdata/whazzup/whazzup.txt");
+            whazzupDownload.downloadWhazzup("https://api.ivao.aero/v2/tracker/whazzup");
 
 
 
@@ -73,7 +73,7 @@ namespace tempEsup
         private void timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             WhazzupDownloader whazzupDownload = new WhazzupDownloader();
-            whazzupDownload.downloadWhazzup("https://api.ivao.aero/getdata/whazzup/whazzup.txt");
+            whazzupDownload.downloadWhazzup("https://api.ivao.aero/v2/tracker/whazzup");
         }
 
         
