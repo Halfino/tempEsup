@@ -16,7 +16,7 @@ namespace tempEsup
         {
             int nextSquawk;
             WhazzupParser parser = new WhazzupParser();
-            List<String> assignedSquawks = parser.getSquawks(Path.Combine(Environment.CurrentDirectory, @"Data\", "whazzup.txt"));
+            List<String> assignedSquawks = parser.getSquawks(Path.Combine(Environment.CurrentDirectory, @"Data\", "whazzup.json"));
 
             if (previous == 4327 || previous == 3326) //rozsireni banky pro LKTB_TWR
             {

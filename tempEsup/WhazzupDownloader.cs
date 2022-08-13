@@ -15,7 +15,7 @@ namespace tempEsup
 
          public void downloadWhazzup(string uri)
         {
-            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", "whazzup.txt");
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", "whazzup.json");
 
             try
             {
