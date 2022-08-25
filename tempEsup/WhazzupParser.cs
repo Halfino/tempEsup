@@ -12,25 +12,26 @@ namespace tempEsup
         public List<String> getSquawks(string filePath)
         {
             List<String> assignedSquawks = new List<String>();
+            string jsonString;
 
+            using (StreamReader r = new StreamReader(filePath))
+            {
+                jsonString = r.ReadToEnd();
+            }
+                
 
-                StreamReader r = new StreamReader(filePath);
-                string jsonString = r.ReadToEnd();
+            using (JsonDocument document = JsonDocument.Parse(jsonString))
+            {
+                JsonElement root = document.RootElement;
+                JsonElement clientsElement = root.GetProperty("clients");
+                JsonElement pilotElement = clientsElement.GetProperty("pilots");
 
-                using (JsonDocument document = JsonDocument.Parse(jsonString))
+                foreach (JsonElement pilot in pilotElement.EnumerateArray())
                 {
-                    JsonElement root = document.RootElement;
-                    JsonElement clientsElement = root.GetProperty("clients");
-                    JsonElement pilotElement = clientsElement.GetProperty("pilots");
-
-
-                    foreach (JsonElement pilot in pilotElement.EnumerateArray())
-                    {
-                        JsonElement track = pilot.GetProperty("lastTrack");
-                        int squawk = track.GetProperty("transponder").GetInt32();
-
-                        assignedSquawks.Add(squawk.ToString());
-                    }
+                    JsonElement track = pilot.GetProperty("lastTrack");
+                    int squawk = track.GetProperty("transponder").GetInt32();
+                    assignedSquawks.Add(squawk.ToString());
+                }
 
                 }
             
