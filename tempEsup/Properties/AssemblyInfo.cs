@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("tempEsup")]
 [assembly: AssemblyDescription("Short tool to provide SQUAWK for LKAA online IVAO traffic")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Jan Koranda")]
 [assembly: AssemblyProduct("tempEsup")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCopyright("Copyright © 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
