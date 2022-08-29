@@ -191,6 +191,9 @@
   <ItemGroup>
     <Resource Include="vESUP.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\Logo640x480.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.5\build\System.Text.Json.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ESUP" Height="450" Width="800" ResizeMode="CanMinimize">
     <Grid>
-        <Image HorizontalAlignment="Center" Height="480" Margin="0" VerticalAlignment="Center" Width="640" Source="images/Logo640x480.png" Opacity="0.5"/>
+        <Image HorizontalAlignment="Center" Height="480" Margin="0" VerticalAlignment="Center" Width="640" Source="images/Logo640x480.png" Opacity="0.6"/>
         <Frame x:Name="mainFrame" Content="" NavigationUIVisibility="Hidden"/>
         <Button x:Name="LKAA" Content="LKAA" HorizontalAlignment="Left" Margin="63,42,0,0" VerticalAlignment="Top" Width="135" Height="38" Click="LKAA_Click" FontWeight="Bold" Background="#B20075BE" BorderBrush="{x:Null}" MinWidth="2" FontSize="16"/>
         <Button x:Name="LKAA_West" Content="LKAA West" HorizontalAlignment="Left" Margin="63,122,0,0" VerticalAlignment="Top" Width="135" Height="38" Click="LKAA_West_click" FontWeight="Bold" Background="#B20075BE" BorderBrush="{x:Null}" FontSize="16"/>
