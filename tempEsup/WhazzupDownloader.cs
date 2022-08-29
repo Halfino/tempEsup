@@ -22,7 +22,7 @@ namespace tempEsup
             }
             catch (WebException e)
             {
-                MessageBox.Show("Soubor whazzup nelze stahnout.Kontaktujte CZ-WM@ivao.aero \n" + e.Message);
+                MessageBox.Show("Soubor whazzup nelze stahnout.Kontaktujte VID 309445 \n" + e.Message);
             }
         }
     }

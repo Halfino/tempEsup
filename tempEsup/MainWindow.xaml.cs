@@ -49,10 +49,12 @@ namespace tempEsup
             whazzupDownload.downloadWhazzup("https://api.ivao.aero/v2/tracker/whazzup");
 
 
-            
+
             //Timer to execute download after 5 minutes and reset time tracker
-            Timer t = new Timer(TimeSpan.FromMinutes(1).TotalMilliseconds); // Set the time (1 mins in this case)            
-            t.AutoReset = true;
+            Timer t = new Timer(TimeSpan.FromMinutes(1).TotalMilliseconds)
+            {
+                AutoReset = true
+            }; // Set the time (1 mins in this case)            
             t.Elapsed += new ElapsedEventHandler(timer_Elapsed);
             t.Start();         
         }
@@ -66,18 +68,11 @@ namespace tempEsup
         
         private void LKAA_Click(object sender, RoutedEventArgs e)
         {
-            int newSquawk = 0;
-            try
-            {
-                SquawkCounter counter = new SquawkCounter();
-                newSquawk = counter.countSquawk(Globals.LKAA_MIN(), Globals.LKAA_MAX(), Globals.previousLKAA);
-                Globals.previousLKAA = newSquawk;
-                Code.Text = newSquawk.ToString();
-            }
-            catch (Exception fe)
-            {
-                MessageBox.Show("Kurva problem \n" + fe.Message);
-            }
+            int newSquawk;
+            SquawkCounter counter = new SquawkCounter();
+            newSquawk = counter.countSquawk(Globals.LKAA_MIN(), Globals.LKAA_MAX(), Globals.previousLKAA);
+            Globals.previousLKAA = newSquawk;
+            Code.Text = newSquawk.ToString();
         }
 
         private void LKAA_Dom_click(object sender, RoutedEventArgs e)

@@ -35,7 +35,6 @@ namespace tempEsup
 
                 }
             
-
             return assignedSquawks;
         }
     }

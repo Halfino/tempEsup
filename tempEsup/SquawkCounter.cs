@@ -13,9 +13,16 @@ namespace tempEsup
         public int countSquawk(int min, int max, int previous)
         {
             int nextSquawk;
+            List<String> assignedSquawks = new List<String>();
             WhazzupParser parser = new WhazzupParser();
-            List<String> assignedSquawks = parser.getSquawks(Path.Combine(Environment.CurrentDirectory, @"Data\", "whazzup.json"));
-
+            try
+            {
+                assignedSquawks = parser.getSquawks(Path.Combine(Environment.CurrentDirectory, @"Data\", "whazzup.json"));
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Problém s otevřením whazzup.json, pravděpodobně doposud správně nestánut. Chybu se zatím nepodařilo odchytit ve vývojovém prostředí \n" + e.Message);
+            }
             if (previous == 4327 || previous == 3326) //rozsireni banky pro LKTB_TWR
             {
                 min = 3326;
