@@ -28,8 +28,17 @@ namespace tempEsup
 
                 foreach (JsonElement pilot in pilotElement.EnumerateArray())
                 {
+                    int squawk = 0;
                     JsonElement track = pilot.GetProperty("lastTrack");
-                    int squawk = track.GetProperty("transponder").GetInt32();
+                    if (track.ValueKind == JsonValueKind.Null)
+                    {
+                        squawk = 2000;
+                    }
+                    else
+                    {
+                        squawk = track.GetProperty("transponder").GetInt32();
+                    }
+                    
                     assignedSquawks.Add(squawk.ToString());
                 }
 
