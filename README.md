@@ -4,6 +4,7 @@ IVAO CZ ESUP
 
 update of application:
 Complete rework to act as API Connector to achieve SQUAWK assigment syncing.
+Used as second develompent branch named "Integrate_esup_api
 
 Squak assigner for IVAO Network, Hardcoded for LKAA airspace.
 This utility is not syncing between launched instances and works with whazzup file, hard coded to reload each 1 minute.
