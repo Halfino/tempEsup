@@ -1,6 +1,11 @@
 # tempEsup
 IVAO CZ ESUP
 
+
+update of application:
+Complete rework to act as API Connector to achieve SQUAWK assigment syncing.
+Used as second develompent branch named "Integrate_esup_api
+
 Squak assigner for IVAO Network, Hardcoded for LKAA airspace.
 
 update of application: Complete rework to act as API Connector to achieve SQUAWK assigment syncing. Used as second develompent branch named "Integrate_esup_api"

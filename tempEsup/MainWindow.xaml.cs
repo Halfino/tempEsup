@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Windows;
-using System.IO;
-using System.Timers;
+using System.Net.Http;
+using Newtonsoft.Json.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace tempEsup
 {
@@ -12,17 +14,8 @@ namespace tempEsup
     {
         public MainWindow()
         {
-            try
-            {
-                string dirPath = System.IO.Path.Combine(Environment.CurrentDirectory, @"Data");
-                Directory.CreateDirectory(dirPath);
-            }
-            catch(IOException e)
-            {
-                MessageBox.Show("Nelze vytvorit adresar Data. Zkontrolujte moznost zapisu ve slozce" + e);
-            }
             InitializeComponent();
-            MessageBox.Show("Copyright(c) 2019 Jan Koranda\n\n"
+            MessageBox.Show("Copyright(c) 2022 Jan Koranda\n\n"
                             + "Permission is hereby granted, free of charge, to any person\n"
                             + "obtaining a copy of this software and associated documentation\n"
                             + "files(the 'Software'), to deal in the Software without\n"
@@ -42,157 +35,112 @@ namespace tempEsup
                             + "WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING\n"
                             + "FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR\n"
                             + "OTHER DEALINGS IN THE SOFTWARE.");
-            Globals.previous = 0;
+        }
 
-            //Dont know how to execute download on timer start, so using this again here
-            WhazzupDownloader whazzupDownload = new WhazzupDownloader();
-            whazzupDownload.downloadWhazzup("https://api.ivao.aero/v2/tracker/whazzup");
+        private async void LKAA_Click(object sender, RoutedEventArgs e)
+        {
+            await GetSquawk("\"LKAA\"");
+        }
 
+        private async void LKAA_Dom_click(object sender, RoutedEventArgs e)
+        {
+            await GetSquawk("\"LKAA_DOM\"");
+        }
 
+        private async void LKAA_West_click(object sender, RoutedEventArgs e)
+        {
+            await GetSquawk("\"LKAA_WEST\"");
+        }
 
-            //Timer to execute download after 5 minutes and reset time tracker
-            Timer t = new Timer(TimeSpan.FromMinutes(1).TotalMilliseconds)
+        private async void LKTB_CTA_click(object sender, RoutedEventArgs e)
+        {
+            await GetSquawk("\"LKTB_CTA\"");
+        }
+
+        private async void LKMT_CTA_click(object sender, RoutedEventArgs e)
+        {
+            await GetSquawk("\"LKMT_CTA\"");
+        }
+
+        private async void LKPR_click(object sender, RoutedEventArgs e)
+        {
+            await GetSquawk("\"LKPR\"");
+
+        }
+
+        private async void LKTB_click(object sender, RoutedEventArgs e)
+        {
+            await GetSquawk("\"LKTB\"");
+        }
+
+        private async void LKMT_click(object sender, RoutedEventArgs e)
+        {
+            await GetSquawk("\"LKMT\"");
+        }
+
+        private async void LKKV_click(object sender, RoutedEventArgs e)
+        {
+            await GetSquawk("\"LKKV\"");
+        }
+
+        private async void LKPD_click(object sender, RoutedEventArgs e)
+        {
+            await GetSquawk("\"LKPD\"");
+        }
+
+        private async void LKVO_click(object sender, RoutedEventArgs e)
+        {
+            await GetSquawk("\"LKVO\"");
+        }
+
+        private async void LKCV_click(object sender, RoutedEventArgs e)
+        {
+            await GetSquawk("\"LKCV\"");
+        }
+
+        private async void LKNA_click(object sender, RoutedEventArgs e)
+        {
+            await GetSquawk("\"LKNA\"");
+        }
+
+        private async void LKKB_click(object sender, RoutedEventArgs e)
+        {
+            await GetSquawk("\"LKKB\"");
+        }
+
+        private async void LKAA_VFR_click(object sender, RoutedEventArgs e)
+        {
+            await GetSquawk("\"LKAA_VFR\"");
+        }
+
+        private async void LKAA_MAN_click(object sender, RoutedEventArgs e)
+        {
+            await GetSquawk("\"LKAA_MAN\"");
+        }
+
+        private async Task GetSquawk(string bank)
+        {
+            try
             {
-                AutoReset = true
-            }; // Set the time (1 mins in this case)            
-            t.Elapsed += new ElapsedEventHandler(timer_Elapsed);
-            t.Start();         
-        }
-
-        private void timer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            WhazzupDownloader whazzupDownload = new WhazzupDownloader();
-            whazzupDownload.downloadWhazzup("https://api.ivao.aero/v2/tracker/whazzup");
-        }
-
-        
-        private void LKAA_Click(object sender, RoutedEventArgs e)
-        {
-            int newSquawk;
-            SquawkCounter counter = new SquawkCounter();
-            newSquawk = counter.countSquawk(Globals.LKAA_MIN(), Globals.LKAA_MAX(), Globals.previousLKAA);
-            Globals.previousLKAA = newSquawk;
-            Code.Text = newSquawk.ToString();
-        }
-
-        private void LKAA_Dom_click(object sender, RoutedEventArgs e)
-        {
-            SquawkCounter counter = new SquawkCounter();
-            int newSquawk = counter.countSquawk(Globals.LKAA_DOM_MIN(), Globals.LKAA_DOM_MAX(), Globals.previousLKAAdom);
-            Globals.previousLKAAdom = newSquawk;
-            Code.Text = newSquawk.ToString();
-        }
-
-        private void LKAA_West_click(object sender, RoutedEventArgs e)
-        {
-            SquawkCounter counter = new SquawkCounter();
-            int newSquawk = counter.countSquawk(Globals.LKAA_WEST_MIN(), Globals.LKAA_WEST_MAX(), Globals.prevLKAAwest);
-            Globals.prevLKAAwest = newSquawk;
-            Code.Text = newSquawk.ToString();
-        }
-
-        private void LKTB_CTA_click(object sender, RoutedEventArgs e)
-        {
-            SquawkCounter counter = new SquawkCounter();
-            int newSquawk = counter.countSquawk(Globals.LKTB_CTA_MIN(), Globals.LKTB_CTA_MAX(), Globals.prevLKTBcta);
-            Globals.prevLKTBcta = newSquawk;
-            Code.Text = newSquawk.ToString("D4");
-        }
-
-        private void LKMT_CTA_click(object sender, RoutedEventArgs e)
-        {
-            SquawkCounter counter = new SquawkCounter();
-            int newSquawk = counter.countSquawk(Globals.LKMT_CTA_MIN(), Globals.LKMT_CTA_MAX(), Globals.prevLKMTcta);
-            Globals.prevLKMTcta = newSquawk;
-            Code.Text = newSquawk.ToString("D4");
-        }
-
-        private void LKPR_click(object sender, RoutedEventArgs e)
-        {
-            SquawkCounter counter = new SquawkCounter();
-            int newSquawk = counter.countSquawk(Globals.LKPR_MIN(), Globals.LKPR_MAX(), Globals.prevLKPR);
-            Globals.prevLKPR = newSquawk;
-            Code.Text = newSquawk.ToString("D4");
-        }
-
-        private void LKTB_click(object sender, RoutedEventArgs e)
-        {
-            SquawkCounter counter = new SquawkCounter();
-            int newSquawk = counter.countSquawk(Globals.LKTB_MIN(), Globals.LKTB_MAX(), Globals.prevLKTB);
-            Globals.prevLKTB = newSquawk;
-            Code.Text = newSquawk.ToString("D4");
-        }
-
-        private void LKMT_click(object sender, RoutedEventArgs e)
-        {
-            SquawkCounter counter = new SquawkCounter();
-            int newSquawk = counter.countSquawk(Globals.LKMT_MIN(), Globals.LKMT_MAX(), Globals.prevLKMT);
-            Globals.prevLKMT = newSquawk;
-            Code.Text = newSquawk.ToString("D4");
-        }
-
-        private void LKKV_click(object sender, RoutedEventArgs e)
-        {
-            SquawkCounter counter = new SquawkCounter();
-            int newSquawk = counter.countSquawk(Globals.LKKV_MIN(), Globals.LKKV_MAX(), Globals.prevLKKV);
-            Globals.prevLKKV = newSquawk;
-            Code.Text = newSquawk.ToString("D4");
-        }
-
-        private void LKPD_click(object sender, RoutedEventArgs e)
-        {
-            SquawkCounter counter = new SquawkCounter();
-            int newSquawk = counter.countSquawk(Globals.LKPD_MIN(), Globals.LKPD_MAX(), Globals.prevLKPD);
-            Globals.prevLKPD = newSquawk;
-            Code.Text = newSquawk.ToString("D4");
-        }
-
-        private void LKVO_click(object sender, RoutedEventArgs e)
-        {
-            SquawkCounter counter = new SquawkCounter();
-            int newSquawk = counter.countSquawk(Globals.LKVO_MIN(), Globals.LKVO_MAX(), Globals.prevLKVO);
-            Globals.prevLKVO = newSquawk;
-            Code.Text = newSquawk.ToString("D4");
-        }
-
-        private void LKCV_click(object sender, RoutedEventArgs e)
-        {
-            SquawkCounter counter = new SquawkCounter();
-            int newSquawk = counter.countSquawk(Globals.LKCV_MIN(), Globals.LKCV_MAX(), Globals.prevLKCV);
-            Globals.prevLKCV = newSquawk;
-            Code.Text = newSquawk.ToString("D4");
-        }
-
-        private void LKNA_click(object sender, RoutedEventArgs e)
-        {
-            SquawkCounter counter = new SquawkCounter();
-            int newSquawk = counter.countSquawk(Globals.LKNA_MIN(), Globals.LKNA_MAX(), Globals.prevLKNA);
-            Globals.prevLKNA = newSquawk;
-            Code.Text = newSquawk.ToString("D4");
-        }
-
-        private void LKKB_click(object sender, RoutedEventArgs e)
-        {
-            SquawkCounter counter = new SquawkCounter();
-            int newSquawk = counter.countSquawk(Globals.LKKB_MIN(), Globals.LKKB_MAX(), Globals.prevLKKB);
-            Globals.prevLKKB = newSquawk;
-            Code.Text = newSquawk.ToString("D4");
-        }
-
-        private void LKAA_VFR_click(object sender, RoutedEventArgs e)
-        {
-            SquawkCounter counter = new SquawkCounter();
-            int newSquawk = counter.countSquawk(Globals.LKAA_VFR_MIN(), Globals.LKAA_VFR_MAX(), Globals.prevLKAAvfr);
-            Globals.prevLKAAvfr = newSquawk;
-            Code.Text = newSquawk.ToString("D4");
-        }
-
-        private void LKAA_MAN_click(object sender, RoutedEventArgs e)
-        {
-            SquawkCounter counter = new SquawkCounter();
-            int newSquawk = counter.countSquawk(Globals.LKAA_MAN_MIN(), Globals.LKAA_MAN_MAX(), Globals.prevLKAAmnl);
-            Globals.prevLKAAmnl = newSquawk;
-            Code.Text = newSquawk.ToString("D4");
+                var client = new HttpClient();
+                var request = new HttpRequestMessage(HttpMethod.Post, "http://esup.onehalf.eu/squawks");
+                request.Content = new StringContent("{\"bank\": " + bank + "}", Encoding.UTF8, "application/json");
+                var response = await client.SendAsync(request);
+                string data = JObject.Parse(response.Content.ReadAsStringAsync().Result)["code"].ToString();
+                if (data == "FULL")
+                {
+                    MessageBox.Show("Zvolená banka SQUAWK je obsazena. Zvolte náhradní.");
+                    Code.Text = "0000";
+                }
+                else
+                {
+                    Code.Text = data;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Objevila se chyba, kontaktujte VID 309445" + ex);
+            }
         }
 
         private void Lazy_click(object sender, RoutedEventArgs e)
